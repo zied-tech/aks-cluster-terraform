@@ -1,1 +1,1 @@
-# aks-cluster-terraform
+# aks-terraform

@@ -1,0 +1,78 @@
+#forgot-password-button {
+	border: 3px solid #2381de;
+	background: #2381de;
+	font-size: 16px;
+	font-family: 'Roboto Slab';
+	padding: 5px;
+	border-radius: 3px;
+	text-align:center;
+	margin-top:20px;
+	color:white;
+	margin-top:20px;
+}
+
+#email-label, #firstname-label, #email-label {
+	font-family: 'Roboto Slab', serif;
+	font-weight: 500;
+	font-size: 16px;
+}
+
+
+#employee-login-link{
+	font-family: 'Roboto Slab', serif;
+	font-weight: 500;
+	font-size: 16px;
+	text-align: center;
+	color:black;
+}
+
+#login-page-bottom-links{
+	text-align:center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number], input[type=password] {
+  -moz-appearance: textfield;
+  width:100px;
+}
+
+#employee-login-link{
+	font-family: 'Roboto Slab', serif;
+	font-weight: 500;
+	font-size: 16px;
+	text-align: center;
+	color:black;
+	    padding-right: 10px;
+}
+
+#forgot-password-link{
+	font-family: 'Roboto Slab', serif;
+	font-weight: 500;
+	font-size: 16px;
+	text-align: center;
+	color:black;
+}
+
+#login-page-bottom-links{
+	text-align:center;
+}
+
+#admin-login-link{
+	font-family: 'Roboto Slab', serif;
+	font-weight: 500;
+	font-size: 16px;
+	text-align: center;
+	color:black;
+	    padding-right: 10px;
+}
+
+td{
+	  width:100px;
+	  text-align:left;
+}

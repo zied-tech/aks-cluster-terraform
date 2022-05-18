@@ -1,0 +1,57 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: employeecare-app
+  labels:
+    name: employeecare-app
+spec:
+  ports:
+    - nodePort: 30164 
+      port: 8080      
+      targetPort: 8080  
+      protocol: TCP
+  selector:           
+    app: employeecare-app
+  type: LoadBalancer       
+
+---
+apiVersion: apps/v1 
+kind: Deployment    
+metadata:              
+  name: employeecare-app
+spec:                
+  selector:         
+    matchLabels:
+      app: employeecare-app
+  replicas: 1     
+  template:
+    metadata:
+      labels:        
+        app: employeecare-app
+    spec:
+      containers:
+        - name: employeecare-app
+          image: 100598/employeecare:1.0
+          ports:
+            - containerPort: 8080                
+          env:   
+          - name: DB_HOST   
+            valueFrom: 
+              configMapKeyRef:
+                name: database-configuration 
+                key: host
+          - name: DB_NAME  
+            valueFrom:
+              configMapKeyRef:
+                name: database-configuration 
+                key: name
+          - name: DB_USERNAME  
+            valueFrom:
+              secretKeyRef:
+                name: database-user
+                key: username
+          - name: DB_PASSWORD 
+            valueFrom:
+              secretKeyRef:
+                name: database-user
+                key: password     
