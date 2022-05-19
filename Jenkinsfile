@@ -2,11 +2,6 @@ pipeline {
 
     agent any 
     stages {
-
-        stage('Cloning our Git') {
-        steps { git 'https://github.com/zied-tech/aks-cluster-terraform'
-        }
-        }
         stage('Mvn Clean') {
         steps {sh "mvn clean" }
         }
