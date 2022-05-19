@@ -2,14 +2,8 @@ pipeline {
 
     agent any 
     stages {
-        stage('Mvn Clean') {
-        steps {sh "mvn clean" }
-        }
-        stage('Mvn Compile') {
-        steps {sh "mvn compile" }
-        }
-        stage('Mvn Install') {
-        steps {sh "mvn install" }
+        stage('Build artiifact') {
+        steps {sh "mvn clean package" }
         }
     stage('Cleaning up')
         {
