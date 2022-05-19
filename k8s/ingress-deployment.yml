@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: employeecare
+  namespace: mypfe
 spec:
   rules:
   - host: employeecare.com

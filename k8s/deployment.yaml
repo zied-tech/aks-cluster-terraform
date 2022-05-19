@@ -2,23 +2,25 @@ kind: Service
 apiVersion: v1
 metadata:
   name: employeecare-app
+  namespace: mypfe
   labels:
     name: employeecare-app
 spec:
   ports:
-    - nodePort: 30164 
+    - name: app-http 
       port: 8080      
       targetPort: 8080  
       protocol: TCP
   selector:           
     app: employeecare-app
-  type: LoadBalancer       
-
+  type: LoadBalancer
+  #ClusterIP: None   
 ---
 apiVersion: apps/v1 
 kind: Deployment    
 metadata:              
   name: employeecare-app
+  namespace: mypfe
 spec:                
   selector:         
     matchLabels:
@@ -31,9 +33,16 @@ spec:
     spec:
       containers:
         - name: employeecare-app
-          image: 100598/employeecare:1.0
+          image: ziedcloud2020/employeecare:1.0
           ports:
-            - containerPort: 8080                
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi          
           env:   
           - name: DB_HOST   
             valueFrom: 
@@ -54,4 +63,4 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: database-user
-                key: password     
+                key: password
