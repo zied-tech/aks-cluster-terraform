@@ -5,12 +5,8 @@ pipeline {
         stage('Build artiifact') {
         steps {sh "mvn clean package" }
         }
-    stage('Cleaning up')
-        {
-        steps
-            { 
-                sh "docker rmi $registry:$BUILD_NUMBER" 
-            } 
-        }
+        stage('Building Docker image') {
+		steps { sh "docker build -t ziedcloud2020/employeecare:1.1 ." }
+		}
     }
 }
