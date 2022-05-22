@@ -6,7 +6,7 @@ pipeline {
         steps {sh "mvn clean package" }
         }
         stage('Building our image') {
-		steps { script { dockerImage = docker.build registry + ":$BUILD_NUMBER" } }
+		steps { sh docker build -t ziedcloud2020/employeecare:1.1 . }
 		}
        
     }
