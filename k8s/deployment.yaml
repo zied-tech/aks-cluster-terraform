@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: employeecare-app
-          image: ziedcloud2020/employeecare:1.0
+          image: ziedcloud2020/employeecare:latest
           ports:
             - containerPort: 8080
           resources:
