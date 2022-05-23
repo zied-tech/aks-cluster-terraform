@@ -15,8 +15,10 @@ pipeline {
         steps {sh "mvn clean package" }
         }
         stage('Building Docker image') {
-		steps { def dockerImage = {sh "docker build -t ziedcloud2020/employeecare:1.1 ."} }
-		}
+		steps { 
+           script{ dockerImage = docker.build registryname}
+		 }
+        }
         stage('push Docker image to ACR') {
 		steps { 
             script{
