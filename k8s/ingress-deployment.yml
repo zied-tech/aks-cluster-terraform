@@ -5,13 +5,13 @@ metadata:
   namespace: mypfe
 spec:
   rules:
-  - host: employeecare.com
+  - host: zied-employeecare.eastus.cloudapp.azure.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: employeecare
+            name: employeecare-svc
             port:
               number: 8080
