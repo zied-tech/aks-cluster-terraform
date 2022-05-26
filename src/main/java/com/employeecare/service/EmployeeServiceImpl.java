@@ -2,10 +2,8 @@ package com.employeecare.service;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.logging.LogManager;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +17,7 @@ import com.employeecare.web.dto.EmployeeRegistrationDto;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
-//@Autowired
-// private static final Logger l = LogManager.getLoger(EmployeeServiceImpl.class);
+
 	private EmployeeRepository employeeRepository;
 
 	public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
@@ -28,27 +25,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 		this.employeeRepository = employeeRepository;
 	}
 
-
-	@Override
+ @Override
 	public Employee save(EmployeeRegistrationDto registrationDto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-/* @Override
-
-	public Employee save(EmployeeRegistrationDto registrationDto) {
-		try {
-			l.info("In methode save employee :");
+	
 			Employee employee = new Employee(registrationDto.getFirstname(),registrationDto.getLastname(),
 				registrationDto.getEmail(),registrationDto.getPassword(),registrationDto.getDob(),
 				registrationDto.getAddress(),registrationDto.getGender(),registrationDto.getCity(),Arrays.asList(new Role("EMP_ROLE")));
-			l.debug("Connexion to DB OK");
+		
 			return employeeRepository.save(employee);
-		} catch (Exception e) {
-			l.error("Out of methode save employee with Errors : " + e);
-		}
+
 	}
-*/
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
