@@ -25,7 +25,8 @@ metadata:
     tier: database
 spec:
   accessModes:
-    - ReadWriteOnce   
+    - ReadWriteOnce 
+  storageClassName: default  
   resources:
     requests:
       storage: 1Gi   
