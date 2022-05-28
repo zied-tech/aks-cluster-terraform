@@ -13,7 +13,7 @@ CREATE TABLE ADMIN (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES ADMIN WRITE;
-INSERT INTO ADMIN VALUES (1,'Robert','Almindo','robert@abc.com','JFH123D'),(2,'Lisa','Morgan','lisam@abc.com','8ADSH32');
+INSERT INTO ADMIN VALUES (1,'Zied','KHELIFI','zied.khelifi@esprit.tn','ziedcloud2020');
 UNLOCK TABLES;
 
 DROP TABLE IF EXISTS EMPLOYEE;
@@ -31,7 +31,7 @@ CREATE TABLE EMPLOYEE (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES EMPLOYEE WRITE;
-INSERT INTO EMPLOYEE VALUES (1,'Peter','Beton','peterb@abc.com','10/10/1992','MALE','BJHFD12','Mexios','Uruntro'); 
+INSERT INTO EMPLOYEE VALUES (1,'Zied','KHELIFI','zied.khelifi@esprit.tn','10/10/1992','MALE','ziedcloud2020','Ariana','Tunisia'); 
 INSERT INTO EMPLOYEE VALUES (2,'Maria','Hord','maria@abc.com','04/04/1994','FEMALE','12JKHDF1','Juman','Kovenin');
 UNLOCK TABLES;
 
