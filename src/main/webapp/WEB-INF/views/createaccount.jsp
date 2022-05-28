@@ -14,7 +14,7 @@
 	<div id="parent">
 		<h3>Creating Admin Account</h3>
 
-		<p>Send en email at rohitkumar1121.rk@gmail.com</p>
+		<p>Send en email at zied.khelifi@esprit.tn</p>
 		<a href="/app">Redirect to home</a>
 		
 	</div>
