@@ -24,7 +24,7 @@ pipeline {
                         def image = docker.build('acradactimzied.azurecr.io/employeecare:latest')
                         image.push(patch)
                         
-                    sh "echo \$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}') > VERSION"
+                    sh "NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}'); echo -n \$NEXT_VERSION > VERSION"
                     sh "git add VERSION && git commit -qm 'Setting next version to \$(cat VERSION) && git -q push"
                     }
                 }
