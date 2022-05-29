@@ -25,15 +25,25 @@ pipeline {
                         image.push(patch)
                         
                     //sh "NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}'); echo -n \$NEXT_VERSION > VERSION"
-                    sh "export NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}');"
-                    sh "echo \$NEXT_VERSION > VERSION;"
-                    sh "git config user.name 'Zied KHELIFI'; git config user.email 'zied.khelifi@esprit.tn';"
-                    sh "git branch -a"
-                    sh 'git add VERSION && git commit -qm "Setting next version to ${NEXT_VERSION}" && git push origin remotes/origin/HEAD;'
+                    
                     }
                 }
             }
         }
+        stage('Bump up to next version') {
+        environment { 
+            GIT_AUTH = credentials('github_id') 
+        }
+        steps {
+            sh "export NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}');"
+            sh "echo \$NEXT_VERSION > VERSION;"
+            sh "git config user.name 'Zied KHELIFI'; git config user.email 'zied.khelifi@esprit.tn';"
+            sh('''
+                git config --local credential.helper "!f() { echo username=\\$GIT_AUTH_USR; echo password=\\$GIT_AUTH_PSW; }; f"
+                git push origin HEAD:main
+            ''')
+        }
+    }
 
         stage('email notifiication'){
     steps {
