@@ -2,7 +2,7 @@ pipeline {
 
     agent any 
     environment{
-        registryname = "acradactimzied"
+        registryname = "employeecare"
         registryUrl = "acradactimzied.azurecr.io"
         registryCredential = "ACR"
         dockerImage = ''
