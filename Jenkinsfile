@@ -25,7 +25,7 @@ pipeline {
                         image.push(patch)
                         
                     //sh "NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}'); echo -n \$NEXT_VERSION > VERSION"
-                    sh 'export NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. "{\$NF += 1 ; print}");'
+                    sh "export NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}');"
                     sh 'echo "next version is: v\$NEXT_VERSION";'
                     sh 'git add VERSION && git commit -qm "Setting next version to \$(cat VERSION)" && git -q push;'
                     }
