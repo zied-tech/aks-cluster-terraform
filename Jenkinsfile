@@ -14,7 +14,7 @@ pipeline {
         stage('Build artiifact') {
         steps {sh "mvn clean package" }
         }
-        stage('Build') {
+        stage('Build and push image to ACR') {
             steps {
                 script {
                     def version = readFile('VERSION')
