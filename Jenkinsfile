@@ -38,6 +38,7 @@ pipeline {
             sh "export NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}');"
             sh "echo \$NEXT_VERSION > VERSION;"
             sh "git config user.name 'Zied KHELIFI'; git config user.email 'zied.khelifi@esprit.tn';"
+            sh "git commit -am 'Setting next version';"
             sh('''
                 git config --local credential.helper "!f() { echo username=\\$GIT_AUTH_USR; echo password=\\$GIT_AUTH_PSW; }; f"
                 git push origin HEAD:main
