@@ -4,3 +4,4 @@ EXPOSE 8080
 WORKDIR /app
 COPY target/employeecare.war /app/employeecare.war
 ENTRYPOINT ["java","-jar","/app/employeecare.war"]
+COPY VERSION /

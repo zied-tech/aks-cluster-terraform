@@ -6,7 +6,7 @@ pipeline {
         registryUrl = "acradactimzied.azurecr.io"
         registryCredential = "ACR"
         dockerImage = ''
-    }
+        }
     stages {
         stage('checkout'){
         steps {checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/zied-tech/aks-cluster-terraform']]])}
@@ -14,20 +14,25 @@ pipeline {
         stage('Build artiifact') {
         steps {sh "mvn clean package" }
         }
-        stage('Building Docker image') {
-		steps { 
-           script{ dockerImage = docker.build registryname}
-		 }
-        }
-        stage('push Docker image to ACR') {
-		steps { 
-            script{
-                docker.withRegistry("http://${registryUrl}",registryCredential){
-                    dockerImage.push()
-                   }
-                  }
+        stage('Build') {
+            steps {
+                script {
+                    def version = readFile('VERSION')
+                    def versions = version.split('\\.')
+                    def major = versions[0]
+                    def minor = versions[0] + '.' + versions[1]
+                    def patch = version.trim()
+
+                    docker.withRegistry("http://${registryUrl}",registryCredential) {
+                        def image = docker.build('acradactimzied.azurecr.io/employeecare:latest')
+                        image.push()
+                        image.push(major)
+                        image.push(minor)
+                        image.push(patch)
+                    }
+                }
             }
-		}
+        }
 
         stage('email notifiication'){
 		steps {
@@ -38,5 +43,5 @@ pipeline {
     }
         
     }
-    
+
 }
