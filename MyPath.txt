@@ -1,1 +1,4 @@
 https://zied-employeecare.eastus.cloudapp.azure.com/app/
+https://pfe-zied-argocd.eastus.cloudapp.azure.com/
+http://pfe-zied-grafana.eastus.cloudapp.azure.com/?orgId=1
+
