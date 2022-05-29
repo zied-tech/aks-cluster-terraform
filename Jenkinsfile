@@ -25,7 +25,7 @@ pipeline {
 
                     docker.withRegistry("http://${registryUrl}",registryCredential) {
                         def image = docker.build('acradactimzied.azurecr.io/employeecare:latest')
-                        image.push(major/minor)
+                        image.push(patch)
                         
                     }
                 }
