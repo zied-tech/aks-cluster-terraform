@@ -28,7 +28,8 @@ pipeline {
                     sh "export NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}');"
                     sh "echo \$NEXT_VERSION > VERSION;"
                     sh "git config user.name 'Zied KHELIFI'; git config user.email 'zied.khelifi@esprit.tn';"
-                    sh 'git add VERSION && git commit -qm "Setting next version to ${NEXT_VERSION}" && git push origin main;'
+                    sh "git branch -a"
+                    sh 'git add VERSION && git commit -qm "Setting next version to ${NEXT_VERSION}" && git push origin remotes/origin/HEAD;'
                     }
                 }
             }
