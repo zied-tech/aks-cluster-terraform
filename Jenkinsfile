@@ -18,15 +18,14 @@ pipeline {
             steps {
                 script {
                     def version = readFile('VERSION')
-                    def versions = version.split('\\.')
-                    def major = versions[0]
-                    def minor = versions[0] + '.' + versions[1]
                     def patch = version.trim()
 
                     docker.withRegistry("http://${registryUrl}",registryCredential) {
                         def image = docker.build('acradactimzied.azurecr.io/employeecare:latest')
                         image.push(patch)
                         
+                    sh "echo $(cat VERSION | awk -F. -v OFS=. '{$NF += 1 ; print}') > VERSION"
+                    sh "git add VERSION && git commit -qm 'Setting next version to $(cat VERSION)' && git -q push"
                     }
                 }
             }
