@@ -27,8 +27,7 @@ pipeline {
                         def image = docker.build('acradactimzied.azurecr.io/employeecare:latest')
                         image.push()
                         image.push(major)
-                        image.push(minor)
-                        image.push(patch)
+                        
                     }
                 }
             }
