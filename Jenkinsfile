@@ -36,9 +36,11 @@ pipeline {
         }
         steps {
             sh('''
+                export CURRENT_VERSION=$(cat VERSION)
+                sed -r 's|employeecare:.*|employeecare:'"$CURRENT_VERSION"'|g'  k8s/deployment.yaml
                 export NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}');
                 echo \$NEXT_VERSION > VERSION;
-                git commit -am 'Setting next version';
+                git commit -am 'Setting next version and updating app deployment.yaml';
                 git config --local credential.helper "!f() { echo username=\\$GIT_AUTH_USR; echo password=\\$GIT_AUTH_PSW; }; f"
                 git push origin HEAD:main
             ''')
