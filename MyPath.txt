@@ -1,4 +1,18 @@
+#################
+# EmployeeCare: #
+#################
+
 https://zied-employeecare.eastus.cloudapp.azure.com/app/
+
+###############
+#   ArgoCD    #
+###############
+
 https://pfe-zied-argocd.eastus.cloudapp.azure.com/
+
+###############
+#   Grafana   #
+###############
+
 http://pfe-zied-grafana.eastus.cloudapp.azure.com/?orgId=1
 
