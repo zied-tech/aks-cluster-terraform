@@ -1,18 +1,19 @@
-pipeline { 
+pipeline {
 
-    agent any 
-    environment{
-        registryname = "employeecare"
-        registryUrl = "acradactimzied.azurecr.io"
-        registryCredential = "ACR"
+    agent any
+    environment {
+        registryname = 'employeecare'
+        registryUrl = 'acrzied.azurecr.io'
+        registryCredential = 'ACR'
         dockerImage = ''
         }
     stages {
-        stage('checkout'){
-        steps {checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/zied-tech/aks-cluster-terraform']]])}
+        stage('checkout') {
+        steps {checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [],
+         userRemoteConfigs: [[url: 'https://github.com/zied-tech/aks-cluster-terraform']]])}
         }
         stage('Build artiifact') {
-        steps {sh "mvn clean package" }
+        steps { sh 'mvn clean package' }
         }
         stage('Build and push image to ACR') {
             steps {
@@ -23,9 +24,9 @@ pipeline {
                     docker.withRegistry("http://${registryUrl}",registryCredential) {
                         def image = docker.build('acradactimzied.azurecr.io/employeecare:latest')
                         image.push(patch)
-                        
+
                     //sh "NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}'); echo -n \$NEXT_VERSION > VERSION"
-                    
+
                     }
                 }
             }
@@ -54,7 +55,7 @@ pipeline {
           subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
       }
     }
-        
+
     }
 
 }
