@@ -1577,4 +1577,4 @@ networkPolicy:
   enabled: false
 
 # Force namespace of namespaced resources
-forceNamespace: null
+forceNamespace: monitoring
