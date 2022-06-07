@@ -4,5 +4,5 @@ metadata:
   name: database-configuration
   namespace: mypfe
 data:
- host: mysql
+ host: mysql-svc
  name: EMPLOYEECARE  
