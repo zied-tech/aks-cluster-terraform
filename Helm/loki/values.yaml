@@ -221,7 +221,7 @@ podDisruptionBudget: {}
 
 updateStrategy:
   type: RollingUpdate
-
+namespaceOverride: "monitoring"
 serviceMonitor:
   enabled: false
   interval: ""
