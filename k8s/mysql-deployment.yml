@@ -95,11 +95,6 @@ spec:
                 secretKeyRef:
                   name: database-root-user 
                   key: password   
-            - name: MYSQL_USER 
-              valueFrom:
-                secretKeyRef:
-                  name: database-user
-                  key: username
             - name: MYSQL_PASSWORD 
               valueFrom:
                 secretKeyRef:
