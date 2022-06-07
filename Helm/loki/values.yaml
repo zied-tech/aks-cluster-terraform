@@ -232,7 +232,7 @@ serviceMonitor:
   prometheusRule:
     enabled: false
     additionalLabels: {}
-  #  namespace:
+    namespace: monitoring
     rules: []
     #  Some examples from https://awesome-prometheus-alerts.grep.to/rules.html#loki
     #  - alert: LokiProcessTooManyRestarts
