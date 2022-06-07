@@ -22,7 +22,7 @@ pipeline {
                     def patch = version.trim()
 
                     docker.withRegistry("http://${registryUrl}",registryCredential) {
-                        def image = docker.build('acradactimzied.azurecr.io/employeecare:latest')
+                        def image = docker.build('acrzied.azurecr.io/employeecare:latest')
                         image.push(patch)
 
                     //sh "NEXT_VERSION=\$(cat VERSION | awk -F. -v OFS=. '{\$NF += 1 ; print}'); echo -n \$NEXT_VERSION > VERSION"
