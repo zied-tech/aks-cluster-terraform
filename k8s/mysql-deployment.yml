@@ -92,9 +92,9 @@ spec:
           env:
             - name: MYSQL_ROOT_PASSWORD 
               valueFrom:
-              secretKeyRef:
-                name: database-root-user 
-                key: password   
+                secretKeyRef:
+                  name: database-root-user 
+                  key: password   
             - name: MYSQL_USER 
               valueFrom:
                 secretKeyRef:
