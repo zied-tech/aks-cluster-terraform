@@ -8,10 +8,10 @@ metadata:
     tier: config
 data:
   init.sql: |
-    CREATE USER 'zied'@'localhost' IDENTIFIED BY 'zied';
+    CREATE USER 'zied'@'localhost' IDENTIFIED BY 'root';
     GRANT ALL PRIVILEGES on *.* to 'zied'@'localhost';
     FLUSH PRIVILEGES;
-    
+
     DROP DATABASE IF EXISTS EMPLOYEECARE;
     CREATE DATABASE EMPLOYEECARE;
     USE EMPLOYEECARE;
