@@ -74,7 +74,7 @@ alertmanager:
   prefixURL: ""
 
   ## External URL which can access alertmanager
-  baseURL: "http://localhost:9093"
+  baseURL: "https://zied-employeecare.eastus.cloudapp.azure.com:9093/alertmanager"
 
   ## Additional alertmanager container environment variable
   ## For instance to add a http_proxy
@@ -117,17 +117,20 @@ alertmanager:
   ingress:
     ## If true, alertmanager Ingress will be created
     ##
-    enabled: false
+    enabled: true
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: nginx
 
     ## alertmanager Ingress annotations
     ##
-    annotations: {}
-    #   kubernetes.io/ingress.class: nginx
-    #   kubernetes.io/tls-acme: 'true'
+    annotations: 
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      cert-manager.io/cluster-issuer: letsencrypt
 
     ## alertmanager Ingress additional labels
     ##
@@ -136,11 +139,11 @@ alertmanager:
     ## alertmanager Ingress hostnames with optional path
     ## Must be provided if Ingress is enabled
     ##
-    hosts: []
-    #   - alertmanager.domain.com
+    hosts:
+      - zied-employeecare.eastus.cloudapp.azure.com
     #   - domain.com/alertmanager
 
-    path: /
+    path: /alertmanager
 
     # pathType is only for k8s >= 1.18
     pathType: Prefix
@@ -155,10 +158,10 @@ alertmanager:
     ## alertmanager Ingress TLS configuration
     ## Secrets must be manually created in the namespace
     ##
-    tls: []
-    #   - secretName: prometheus-alerts-tls
-    #     hosts:
-    #       - alertmanager.domain.com
+    tls:
+      - secretName: tls-secret
+        hosts:
+          - zied-employeecare.eastus.cloudapp.azure.com
 
   ## Alertmanager Deployment Strategy type
   # strategy:
