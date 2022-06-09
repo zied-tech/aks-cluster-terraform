@@ -1325,7 +1325,7 @@ pushgateway:
   persistentVolume:
     ## If true, pushgateway will create/use a Persistent Volume Claim
     ##
-    enabled: false
+    enabled: true
 
     ## pushgateway data Persistent Volume access modes
     ## Must match those of existing PV or dynamic provisioner
