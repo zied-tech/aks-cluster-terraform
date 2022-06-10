@@ -160,7 +160,7 @@ extraEnvFrom: []
 # ServiceMonitor configuration
 serviceMonitor:
   # -- If enabled, ServiceMonitor resources for Prometheus Operator are created
-  enabled: true
+  enabled: false
   # -- Alternative namespace for ServiceMonitor resources
   namespace: monitoring
   # -- Namespace selector for ServiceMonitor resources
@@ -170,9 +170,9 @@ serviceMonitor:
   # -- Additional ServiceMonitor labels
   labels: {}
   # -- ServiceMonitor scrape interval
-  interval: 1m
+  interval: null
   # -- ServiceMonitor scrape timeout in Go duration format (e.g. 15s)
-  scrapeTimeout: 2m
+  scrapeTimeout: null
   # -- ServiceMonitor relabel configs to apply to samples before scraping
   # https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
   # (defines `relabel_configs`)
