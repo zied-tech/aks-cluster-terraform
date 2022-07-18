@@ -8,7 +8,7 @@ https://zied-employeecare.eastus.cloudapp.azure.com/app/
 #   ArgoCD    #
 ###############
 
-https://pfe-zied-argocd.eastus.cloudapp.azure.com/
+https://zied-pfe-argocd.eastus.cloudapp.azure.com/
 
 ###############
 #   Grafana   #
