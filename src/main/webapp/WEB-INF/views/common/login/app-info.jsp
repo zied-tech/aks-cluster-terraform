@@ -1,5 +1,5 @@
 <div id="left-div">
-	<h1 id="app-name">Employee Care ADACTIM</h1>
+	<h1 id="app-name">Employee Care</h1>
 	<p id="app-description">
 		Track down your Employees and manage them effectively with Employee Care.<br /><br/>
 		All you have to do is create an Admin account and then start managing your workspace in the best possible way.<br /><br /> 
