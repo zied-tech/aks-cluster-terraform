@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/about.css">
-<title>Employee Care</title>
+<title>Employee Care ADACTIM</title>
 </head>
 <body>
 <h2>About</h2>
