@@ -25,7 +25,7 @@ spec:
   selector:         
     matchLabels:
       app: employeecare-app
-  replicas: 1     
+  replicas: 2     
   template:
     metadata:
       labels:        
