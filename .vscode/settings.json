@@ -1,5 +1,6 @@
 {
     "yaml.schemas": {
         "kubernetes://schema/apps/v1%40deployment": "file:///Users/zied/Desktop/SHARED_UBUNTU/aks-cluster-terraform/k8s/deployment.yaml"
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "automatic"
 }
