@@ -22,6 +22,9 @@ grafana:
 prometheus:
   enabled: true
   isDefault: true
+  server:
+    service:
+      servicePort: 9090
 
 filebeat:
   enabled: false
