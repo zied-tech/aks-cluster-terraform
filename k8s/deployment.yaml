@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: employeecare-app
-          image: acrzied.azurecr.io/employeecare:1.0.28
+          image: acrzied.azurecr.io/employeecare:1.0.29
           ports:
             - containerPort: 8080
           resources:
