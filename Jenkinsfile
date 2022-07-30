@@ -11,6 +11,9 @@ pipeline {
         stage('Build artiifact') {
         steps { sh 'mvn clean package' }
         }
+        stage('Quality test') {
+        steps { sh 'mvn sonar:sonar' }
+        }
         stage('Build and push image to ACR') {
             steps {
                 script {
