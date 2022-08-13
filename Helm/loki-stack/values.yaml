@@ -1,6 +1,6 @@
 loki:
   enabled: true
-  isDefault: false
+  isDefault: true
 
 promtail:
   enabled: true
@@ -45,7 +45,7 @@ filebeat:
         hosts: ["logstash-loki:5044"]
 
 logstash:
-  enabled: true
+  enabled: false
   image: grafana/logstash-output-loki
   imageTag: 1.0.1
   filters:

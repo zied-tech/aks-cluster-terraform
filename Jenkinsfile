@@ -8,7 +8,7 @@ pipeline {
         dockerImage = ''
         }
     stages {
-        stage('Build artiifact') {
+        stage('Build artifact') {
         steps { sh 'mvn clean package' }
         }
         stage('Quality test') {
