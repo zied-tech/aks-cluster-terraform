@@ -171,41 +171,45 @@ alertmanager:
   config:
     global:
       resolve_timeout: 5m
-    inhibit_rules:
-      - source_matchers:
-          - 'severity = critical'
-        target_matchers:
-          - 'severity =~ warning|info'
-        equal:
-          - 'namespace'
-          - 'alertname'
-      - source_matchers:
-          - 'severity = warning'
-        target_matchers:
-          - 'severity = info'
-        equal:
-          - 'namespace'
-          - 'alertname'
-      - source_matchers:
-          - 'alertname = InfoInhibitor'
-        target_matchers:
-          - 'severity = info'
-        equal:
-          - 'namespace'
     route:
-      group_by: ['namespace']
+      receiver: default
+      group_by:
+      - job
+      - alertname
+      continue: false
+      routes:
+      - receiver: deadmansswitch
+        match_re:
+          alertname: DeadMansSwitch|KuredReplicasMismatch|KuredPodNotReady|InfoInhibitor|Watchdog
+        continue: false
+        repeat_interval: 5m
+      - receiver: email-alerts
+        match_re:
+          severity: warning|major|critical
+        continue: true
+        repeat_interval: 10m
       group_wait: 30s
       group_interval: 5m
-      repeat_interval: 12h
-      receiver: 'null'
-      routes:
-      - receiver: 'null'
-        matchers:
-          - alertname =~ "InfoInhibitor|Watchdog"
+      repeat_interval: 15m
     receivers:
-    - name: 'null'
+    - name: default
+    - name: deadmansswitch
+    - name: email-alerts
+      email_configs:
+      - send_resolved: true
+        to: zied.khelifi@esprit.tn
+        from: zied.khelifi@esprit.tn
+        smarthost: smtp.gmail.com:587
+        auth_username: zied.khelifi@esprit.tn
+        auth_password: XXXXX
+        headers:
+          From: zied.khelifi@esprit.tn
+          Subject: '[PFE][{{ .CommonLabels.severity | toUpper }}][{{ .Status | toUpper
+            }}] - {{ .CommonLabels.alertname }}'
+          To: zied.khelifi@esprit.tn
+        require_tls: true
     templates:
-    - '/etc/alertmanager/config/*.tmpl'
+    - /etc/alertmanager/config/*.tmpl
 
   ## Pass the Alertmanager configuration directives through Helm's templating
   ## engine. If the Alertmanager configuration contains Alertmanager templates,
@@ -225,25 +229,25 @@ alertmanager:
   ## ref: https://prometheus.io/docs/alerting/notifications/
   ##      https://prometheus.io/docs/alerting/notification_examples/
   ##
-  templateFiles: {}
+  templateFiles:
   #
   ## An example template:
-  #   template_1.tmpl: |-
-  #       {{ define "cluster" }}{{ .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" }}{{ end }}
-  #
-  #       {{ define "slack.myorg.text" }}
-  #       {{- $root := . -}}
-  #       {{ range .Alerts }}
-  #         *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
-  #         *Cluster:* {{ template "cluster" $root }}
-  #         *Description:* {{ .Annotations.description }}
-  #         *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>
-  #         *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
-  #         *Details:*
-  #           {{ range .Labels.SortedPairs }} - *{{ .Name }}:* `{{ .Value }}`
-  #           {{ end }}
-  #       {{ end }}
-  #       {{ end }}
+    template_1.tmpl: |-
+        {{ define "cluster" }}{{ .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" }}{{ end }}
+  
+        {{ define "slack.myorg.text" }}
+        {{- $root := . -}}
+        {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+          *Cluster:* {{ template "cluster" $root }}
+          *Description:* {{ .Annotations.description }}
+          *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>
+          *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
+          *Details:*
+            {{ range .Labels.SortedPairs }} - *{{ .Name }}:* `{{ .Value }}`
+            {{ end }}
+        {{ end }}
+        {{ end }}
 
   ingress:
     enabled: true
