@@ -504,7 +504,9 @@ alertmanager:
 
     ## Namespaces to be selected for AlertmanagerConfig discovery. If nil, only check own namespace.
     ##
-    alertmanagerConfigNamespaceSelector: {}
+    alertmanagerConfigNamespaceSelector:
+      matchLabels:
+        name: monitoring
     ## Example which selects all namespaces
     ## with label "alertmanagerconfig" with values any of "example-namespace" or "example-namespace-2"
     # alertmanagerConfigNamespaceSelector:
@@ -1571,13 +1573,13 @@ prometheus-node-exporter:
       ## RelabelConfigs to apply to samples before scraping
       ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
       ##
-      relabelings: []
-      # - sourceLabels: [__meta_kubernetes_pod_node_name]
-      #   separator: ;
-      #   regex: ^(.*)$
-      #   targetLabel: nodename
-      #   replacement: $1
-      #   action: replace
+      relabelings: 
+      - sourceLabels: [__meta_kubernetes_pod_node_name]
+        separator: ;
+        regex: ^(.*)$
+        targetLabel: nodename
+        replacement: $1
+        action: replace
   rbac:
     ## If true, create PSPs for node-exporter
     ##
@@ -2240,20 +2242,20 @@ prometheus:
 
     ## Metric relabel configs to apply to samples before ingestion.
     ##
-    metricRelabelings: []
-    # - action: keep
-    #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
-    #   sourceLabels: [__name__]
+    metricRelabelings: 
+    - action: keep
+      regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
+      sourceLabels: [__name__]
 
     #   relabel configs to apply to samples before ingestion.
     ##
-    relabelings: []
-    # - sourceLabels: [__meta_kubernetes_pod_node_name]
-    #   separator: ;
-    #   regex: ^(.*)$
-    #   targetLabel: nodename
-    #   replacement: $1
-    #   action: replace
+    relabelings: 
+    - sourceLabels: [__meta_kubernetes_pod_node_name]
+      separator: ;
+      regex: ^(.*)$
+      targetLabel: nodename
+      replacement: $1
+      action: replace
 
   ## Settings affecting prometheusSpec
   ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#prometheusspec
@@ -2631,7 +2633,91 @@ prometheus:
     ## The scrape configuration example below will find master nodes, provided they have the name .*mst.*, relabel the
     ## port to 2379 and allow etcd scraping provided it is running on all Kubernetes master nodes
     ##
-    additionalScrapeConfigs: []
+    additionalScrapeConfigs:
+      - job_name: blackbox
+        metrics_path: /probe
+        params:
+          module: [http_2xx]
+        static_configs:
+          - targets: 
+            - https://zied-employeecare.eastus.cloudapp.azure.com/app/actuator/health
+        relabel_configs:
+        - source_labels: [__address__]
+          target_label: __param_target
+        - source_labels: [__param_target]
+          target_label: instance
+        - target_label: __address__
+          replacement: prometheus-blackbox-exporter.monitoring:9115
+
+      - job_name: nginx-ingress
+        metrics_path: /metrics
+        scrape_interval: 5s
+        static_configs:
+          - targets: 
+            - nginx-ingress-ingress-nginx-controller-metrics.nginx-ingress.svc.cluster.local
+        relabel_configs:
+        - source_labels: [__address__]
+          target_label: __param_target
+        - source_labels: [__param_target]
+          target_label: instance
+        - target_label: __address__
+          replacement: nginx-ingress-ingress-nginx-controller-metrics.nginx-ingress:10254
+
+      - job_name: pfe-app
+        metrics_path: /app/actuator/prometheus
+        scrape_interval: 5s
+        static_configs:
+          - targets: 
+            - https://zied-employeecare.eastus.cloudapp.azure.com
+        relabel_configs:
+        - source_labels: [__address__]
+          target_label: __param_target
+        - source_labels: [__param_target]
+          target_label: instance
+        - target_label: __address__
+          replacement: employeecare-svc.mypfe:8080
+
+      - job_name: argocd-metrics
+        metrics_path: /metrics
+        scrape_interval: 5s
+        static_configs:
+          - targets: 
+            - http://argocd-metrics.argocd.svc.cluster.local:8082
+        relabel_configs:
+        - source_labels: [__address__]
+          target_label: __param_target
+        - source_labels: [__param_target]
+          target_label: instance
+        - target_label: __address__
+          replacement: argocd-metrics.argocd.svc.cluster.local:8082
+      
+      - job_name: argocd-server-metrics
+        metrics_path: /metrics
+        scrape_interval: 5s
+        static_configs:
+          - targets: 
+            - http://argocd-server-metrics.argocd.svc.cluster.local:8083
+        relabel_configs:
+        - source_labels: [__address__]
+          target_label: __param_target
+        - source_labels: [__param_target]
+          target_label: instance
+        - target_label: __address__
+          replacement: argocd-server-metrics.argocd.svc.cluster.local:8083
+      
+      - job_name: argocd-notifications-controller-metrics
+        metrics_path: /metrics
+        scrape_interval: 5s
+        static_configs:
+          - targets: 
+            - http://argocd-notifications-controller-metrics.argocd.svc.cluster.local:9001
+        relabel_configs:
+        - source_labels: [__address__]
+          target_label: __param_target
+        - source_labels: [__param_target]
+          target_label: instance
+        - target_label: __address__
+          replacement: argocd-notifications-controller-metrics.argocd.svc.cluster.local:9001
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
