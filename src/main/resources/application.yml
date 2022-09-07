@@ -46,6 +46,7 @@ server:
 management:
   security: 
     enabled: false
+    ignored: /**
   endpoints:
     web:
       exposure:
