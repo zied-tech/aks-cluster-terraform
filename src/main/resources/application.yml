@@ -1,0 +1,60 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  main:
+    allow-bean-definition-overriding: true
+  mail:
+    host: smtp.gmail.com
+    port: '587'
+    username: zied.khelifi.2020
+    password: Zied.Khelifi2020
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: false
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: INFO
+        type: INFO
+    root: INFO
+  file:
+    name: logs/employeecare.log
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} - %-5level - %logger{60} - %msg%n'
+server:
+  servlet:
+    context-path: /app
+  port: '8080'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+        exclude: ''
+    jmx:
+      exposure:
+        include: '*'
+        exclude: ''
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
