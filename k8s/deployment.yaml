@@ -25,11 +25,18 @@ spec:
   selector:         
     matchLabels:
       app: employeecare-app
-  replicas: 2     
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  replicas: 3     
   template:
     metadata:
       labels:        
         app: employeecare-app
+
     spec:
       containers:
         - name: employeecare-app
